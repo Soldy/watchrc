@@ -4,50 +4,99 @@ const fs = require('fs');
 
 
 exports.watchrc = function(){
-     this.add = function(inputFile){
-          files.push(inputFile);
-     }
-     this.init= function(inputFunction){
-         eventFunction = inputFunction;
-         restart();
-     }
-
-     let restart = function (){
-         try{
-              clearTimeout(interval);
-         }catch(e){}
-         interval = setTimeout(
-             check,
-             500
-         );
-     }
-     let check = function (){
-         let currentBuffer = {};
-         readError  = [];
-         differents = [];
-         for (let i of files)
-              try{
-                  currentBuffer[i] = fs.statSync(i);
-                  if (typeof holdBuffer[i] !== "undefined")
-                      if (currentBuffer[i]['ctimeMs'] !== holdBuffer[i]['ctimeMs'])
-                          differents.push(i);
-                  holdBuffer[i] = currentBuffer[i];
-              }catch(e){
-                  readError.push(i);
-              }
-        runEvent();
+    /*
+     * @param string {inputFile}
+     * @public
+     * boolean
+     */
+    this.add = function(inputFile){
+        if(typeof inputFile !== "string")
+            return false;
+        files.push(inputFile);
+        return true;
+    }
+    /*
+     * @param function {inputFunction}
+     * @public
+     */
+    this.init= function(inputFunction){
+        if(typeof inputFunction !== "function")
+            return false;
+        eventFunction = inputFunction;
         restart();
-     }
-     let readError     = [],
-         differents    = [],
-         holdBuffer    = {},
-         files         = [],
-         interval      = "",
-         eventFunction  = function(){};
-
-     let runEvent = function(){
-         if (differents.length>0)
-             eventFunction();
-     }
+        return true;
+    }
+    /*
+     * @private
+     *
+     */
+    let restart = function (){
+        try{
+             clearTimeout(interval);
+        }catch(e){}
+        interval = setTimeout(
+            check,
+            500
+        );
+    }
+    /*
+     * @private
+     *
+     */
+    let check = function (){
+        let currentBuffer = {};
+        readError  = [];
+        differents = [];
+        for (let i of files)
+             try{
+                 currentBuffer[i] = fs.statSync(i);
+                 if (typeof holdBuffer[i] !== "undefined")
+                     if (currentBuffer[i]['ctimeMs'] !== holdBuffer[i]['ctimeMs'])
+                         differents.push(i);
+                 holdBuffer[i] = currentBuffer[i];
+             }catch(e){
+                 readError.push(i);
+             }
+       runEvent();
+       restart();
+    }
+    /*
+     * @private
+     *
+     */
+    let readError     = [];
+    /*
+     * @private
+     *
+     */
+    let differents    = [];
+    /*
+     * @private
+     *
+     */
+    let holdBuffer    = {};
+    /*
+     * @private
+     *
+     */
+    let files         = [];
+    /*
+     * @private
+     *
+     */
+    let interval      = "";
+    /*
+     * @private
+     *
+     */
+    let eventFunction  = function(){};
+    /*
+     * @private
+     *
+     */
+    let runEvent = function(){
+        if (differents.length>0)
+            eventFunction();
+    }
 }
 
