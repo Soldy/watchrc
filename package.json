@@ -1,0 +1,25 @@
+{
+    "name": "watchrc",
+    "version": "1.0.0",
+    "description": "file watcher",
+    "main": "index.js",
+    "scripts": {
+        "test": "node test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Soldy/watchrc.git"
+    },
+    "keywords": [],
+    "author": "Soldy <4786022+Soldy@users.noreply.github.com>",
+    "license": "GPLv3",
+    "bugs": {
+        "url": "https://github.com/Soldy/watchrc/issues"
+    },
+    "homepage": "https://github.com/Soldy/watchrc#readme",
+    "devDependencies": {
+        "interactiveConsole": "0.0.7-alpha0",
+        "nanoTest": "0.0.4-alpha",
+        "cheapest-sleep": "0.99.0-alpha0"
+    }
+}
