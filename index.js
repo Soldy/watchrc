@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
+const fs = require('fs');
 
 
 exports.watchrc = function(){
@@ -10,7 +10,7 @@ exports.watchrc = function(){
      * boolean
      */
     this.add = function(inputFile){
-        if(typeof inputFile !== "string")
+        if(typeof inputFile !== 'string')
             return false;
         files.push(inputFile);
         return true;
@@ -20,7 +20,7 @@ exports.watchrc = function(){
      * @public
      */
     this.init= function(inputFunction){
-        if(typeof inputFunction !== "function")
+        if(typeof inputFunction !== 'function')
             return false;
         eventFunction = inputFunction;
         restart();
@@ -49,8 +49,8 @@ exports.watchrc = function(){
         for (let i of files)
             try{
                 currentBuffer[i] = fs.statSync(i);
-                if (typeof holdBuffer[i] !== "undefined")
-                    if (currentBuffer[i]["ctimeMs"] !== holdBuffer[i]["ctimeMs"])
+                if (typeof holdBuffer[i] !== 'undefined')
+                    if (currentBuffer[i]['ctimeMs'] !== holdBuffer[i]['ctimeMs'])
                         differents.push(i);
                 holdBuffer[i] = currentBuffer[i];
             }catch(e){
