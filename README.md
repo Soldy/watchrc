@@ -1,10 +1,34 @@
 # Real Challenge File watcher
 
 
-Simple Inotify alternative example.
+Simple Inotify alternative for nodejs.
 
-!!! This is just a low quality example code !!! 
-!!! Do not use in a live environment !!!
 
+
+## init
+
+```javascript
+
+const watchrc = new (require('watchrc')).watchrc();
+
+
+watchrc.init(
+     function(){
+              testChange = true;
+     }
+);
+
+```
+
+
+
+##add file to watch
+
+```javascript
+watchrc.add(
+    'patch/file'
+);
+
+```
 
 
