@@ -1,6 +1,6 @@
-"use strict"
+"use strict";
 
-const fs = require('fs');
+const fs = require("fs");
 
 
 exports.watchrc = function(){
@@ -14,7 +14,7 @@ exports.watchrc = function(){
             return false;
         files.push(inputFile);
         return true;
-    }
+    };
     /*
      * @param function {inputFunction}
      * @public
@@ -25,20 +25,19 @@ exports.watchrc = function(){
         eventFunction = inputFunction;
         restart();
         return true;
-    }
+    };
     /*
      * @private
      *
      */
     let restart = function (){
-        try{
-             clearTimeout(interval);
-        }catch(e){}
+        if(interval !== false) 
+            clearTimeout(interval);
         interval = setTimeout(
             check,
             500
         );
-    }
+    };
     /*
      * @private
      *
@@ -48,18 +47,19 @@ exports.watchrc = function(){
         readError  = [];
         differents = [];
         for (let i of files)
-             try{
-                 currentBuffer[i] = fs.statSync(i);
-                 if (typeof holdBuffer[i] !== "undefined")
-                     if (currentBuffer[i]['ctimeMs'] !== holdBuffer[i]['ctimeMs'])
-                         differents.push(i);
-                 holdBuffer[i] = currentBuffer[i];
-             }catch(e){
-                 readError.push(i);
-             }
-       runEvent();
-       restart();
-    }
+            try{
+                currentBuffer[i] = fs.statSync(i);
+                if (typeof holdBuffer[i] !== "undefined")
+                    if (currentBuffer[i]["ctimeMs"] !== holdBuffer[i]["ctimeMs"])
+                        differents.push(i);
+                holdBuffer[i] = currentBuffer[i];
+            }catch(e){
+                readError.push(i);
+            }
+        runEvent();
+        interval = false;
+        restart();
+    };
     /*
      * @private
      *
@@ -84,7 +84,7 @@ exports.watchrc = function(){
      * @private
      *
      */
-    let interval      = "";
+    let interval      = false;
     /*
      * @private
      *
@@ -97,6 +97,6 @@ exports.watchrc = function(){
     let runEvent = function(){
         if (differents.length>0)
             eventFunction();
-    }
-}
+    };
+};
 
