@@ -48,14 +48,12 @@ nanoTest.add(
 nanoTest.add( 
     'create watch',
     {
-        "function":function(){ 
-              watchrc.init(
-                   function(){
-                       testChange = true;
-                   }
-              );
-        },
-        "options":[]
+        "function":watchrc.init,
+        "options":[
+            function(){
+                testChange = true;
+            }
+        ]
      },
      "==",
      true
@@ -86,7 +84,7 @@ nanoTest.add(
     'create file watch',
     {
         "function":function(){
-            watchrc.add(targetFile);
+            return watchrc.add(targetFile);
         },
         "options":[]
      },
@@ -132,9 +130,7 @@ nanoTest.add(
 nanoTest.add( 
     'stop watch',
     {
-        "function":function(){
-            return false;
-        },
+        "function":watchrc.stop,
         "options":[]
      },
      "==",
@@ -146,10 +142,11 @@ nanoTest.add(
     {
         "function":function(){
              fs.unlinkSync(targetFile);
-        },  
+             return true;
+        },
         "options":[]
      },
-     "==",
+     "===",
      true
 );
 

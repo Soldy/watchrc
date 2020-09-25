@@ -18,8 +18,8 @@
     },
     "homepage": "https://github.com/Soldy/watchrc#readme",
     "devDependencies": {
-        "interactiveConsole": "0.0.7-alpha0",
-        "nanoTest": "0.0.4-alpha",
-        "cheapest-sleep": "0.99.0-alpha0"
+        "interactiveConsole": "^0.0.7-alpha0",
+        "nanoTest": "^0.9.9-beta-3",
+        "cheapest-sleep": "^0.99.0-alpha0"
     }
 }
