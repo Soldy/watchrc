@@ -1,14 +1,14 @@
 #!/usr/bin/node
-"use strict"
+'use strict';
 
 
 const nanoTest = new (require('nanoTest')).test();
 const fs = require('fs');
-const path = require('path');
+const Path = require('path');
 const dir = '.tmp';
 const targetFile = dir+'file';
 const watchrc = new (require('./index.js')).watchrc();
-const sleep = (require("cheapest-sleep")).sleep;
+const sleep = (require('cheapest-sleep')).sleep;
 
 const deleteFolderRecursive = function(path) {
     if (fs.existsSync(path)) {
@@ -30,17 +30,17 @@ let testChange = false;
 nanoTest.add( 
     'create tmp dir',
     {
-        "function":function(){
+        'function':function(){
             if (!fs.existsSync(dir)){
-                 fs.mkdirSync(dir);
-                 return true;
+                fs.mkdirSync(dir);
+                return true;
             }
             return false;
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 
@@ -48,22 +48,22 @@ nanoTest.add(
 nanoTest.add( 
     'create watch',
     {
-        "function":watchrc.init,
-        "options":[
+        'function':watchrc.init,
+        'options':[
             function(){
                 testChange = true;
             }
         ]
-     },
-     "==",
-     true
+    },
+    '==',
+    true
 );
 
 
 nanoTest.add( 
     'create file',
     {
-        "function":function(){
+        'function':function(){
             fs.writeFileSync(
                 targetFile, 
                 'anni',
@@ -74,80 +74,80 @@ nanoTest.add(
             );
             return true;
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 nanoTest.add( 
     'create file watch',
     {
-        "function":function(){
+        'function':function(){
             return watchrc.add(targetFile);
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 
 nanoTest.add( 
     'change file',
     {
-        "function":function(){
+        'function':function(){
             fs.appendFileSync(
-                 targetFile, 
-                 'anni',
-                 {
-                     encoding : 'utf8',
-                     mode     : 0o755 
-                 }
+                targetFile, 
+                'anni',
+                {
+                    encoding : 'utf8',
+                    mode     : 0o755 
+                }
             );
             return true;
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 nanoTest.add( 
     'check watcher',
     {
-        "function":async function(){
+        'function':async function(){
             await sleep(3);
             return testChange;
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 
 nanoTest.add( 
     'stop watch',
     {
-        "function":watchrc.stop,
-        "options":[]
-     },
-     "==",
-     true
+        'function':watchrc.stop,
+        'options':[]
+    },
+    '==',
+    true
 );
 
 nanoTest.add( 
     'delete file',
     {
-        "function":function(){
-             fs.unlinkSync(targetFile);
-             return true;
+        'function':function(){
+            fs.unlinkSync(targetFile);
+            return true;
         },
-        "options":[]
-     },
-     "===",
-     true
+        'options':[]
+    },
+    '===',
+    true
 );
 
 
@@ -156,17 +156,17 @@ nanoTest.add(
 nanoTest.add( 
     'delete tmp dir',
     {
-        "function":function(){
+        'function':function(){
             if (fs.existsSync(dir)){
-                 deleteFolderRecursive(dir);
-                 return true;
+                deleteFolderRecursive(dir);
+                return true;
             }
             return false;
         },
-        "options":[]
-     },
-     "==",
-     true
+        'options':[]
+    },
+    '==',
+    true
 );
 
 
