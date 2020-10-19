@@ -11,7 +11,6 @@ const dir = '.tmp';
 const targetFile = dir+'file';
 const watchrc = new (require('./index.js')).watchrc();
 const sleep = (require('cheapest-sleep')).sleep;
-
 const deleteFolderRecursive = function(path) {
     if (fs.existsSync(path)) {
         fs.readdirSync(path).forEach((file, index) => {
