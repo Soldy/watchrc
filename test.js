@@ -2,7 +2,9 @@
 'use strict';
 
 
-const nanoTest = new (require('nanoTest')).test();
+const nanoTest = new (require('nanoTest')).test({
+    'debugPrint' : 'short'
+});
 const fs = require('fs');
 const Path = require('path');
 const dir = '.tmp';
