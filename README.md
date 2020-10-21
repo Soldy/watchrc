@@ -21,8 +21,7 @@ watchrc.init(
 ```
 
 
-
-##add file to watch
+## add file to watch
 
 ```javascript
 watchrc.add(
