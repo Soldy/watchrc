@@ -5,9 +5,9 @@ const fs = require('fs');
 
 exports.watchrc = function(){
     /*
-     * @param string {inputFile}
+     * @param {string} inputFile
      * @public
-     * boolean
+     * @return {boolean}
      */
     this.add = function(inputFile){
         if(typeof inputFile !== 'string')
@@ -16,7 +16,7 @@ exports.watchrc = function(){
         return true;
     };
     /*
-     * @param function {inputFunction}
+     * @param {function} inputFunction
      * @public
      */
     this.init= function(inputFunction){
@@ -62,26 +62,31 @@ exports.watchrc = function(){
     };
     /*
      * @private
+     * @var {array}
      *
      */
     let readError     = [];
     /*
      * @private
+     * @var {array}
      *
      */
     let differents    = [];
     /*
      * @private
+     * @var {object}
      *
      */
     let holdBuffer    = {};
     /*
      * @private
+     * @var {array}
      *
      */
     let files         = [];
     /*
      * @private
+     * @var {boolean}
      *
      */
     let interval      = false;
