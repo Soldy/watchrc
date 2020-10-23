@@ -12,7 +12,14 @@ exports.watchrc = function(){
     this.add = function(inputFile){
         if(typeof inputFile !== 'string')
             return false;
-        files.push(inputFile);
+        if(typeof fileCountRun[inputFile] !== 'undefined')
+            return false;
+        fs.watch(
+            inputFile, 
+            { encoding: 'buffer' }, 
+            runEvent
+        );
+        fileCountRun[inputFile] = 0;
         return true;
     };
     /*
@@ -23,73 +30,35 @@ exports.watchrc = function(){
         if(typeof inputFunction !== 'function')
             return false;
         eventFunction = inputFunction;
-        restart();
         return true;
     };
     /*
-     * @private
-     *
+     * @public
+     * @return {object}
      */
-    let restart = function (){
-        if(interval !== false) 
-            clearTimeout(interval);
-        interval = setTimeout(
-            check,
-            500
-        );
+    this.get = function(inputFile){
+        return {
+           'lastRun'        : lastRun,
+           'runCount'       : countRun,
+           'runCountByFlie' : fileCountRun
+
+        };
     };
     /*
      * @private
      *
      */
-    let check = function (){
-        let currentBuffer = {};
-        readError  = [];
-        differents = [];
-        for (let i of files)
-            try{
-                currentBuffer[i] = fs.statSync(i);
-                if (typeof holdBuffer[i] !== 'undefined')
-                    if (currentBuffer[i]['ctimeMs'] !== holdBuffer[i]['ctimeMs'])
-                        differents.push(i);
-                holdBuffer[i] = currentBuffer[i];
-            }catch(e){
-                readError.push(i);
-            }
-        runEvent();
-        interval = false;
-        restart();
-    };
+    let fileCountRun  = {};
     /*
      * @private
-     * @var {array}
      *
      */
-    let readError     = [];
+    let countRun  = 0;
     /*
      * @private
-     * @var {array}
      *
      */
-    let differents    = [];
-    /*
-     * @private
-     * @var {object}
-     *
-     */
-    let holdBuffer    = {};
-    /*
-     * @private
-     * @var {array}
-     *
-     */
-    let files         = [];
-    /*
-     * @private
-     * @var {boolean}
-     *
-     */
-    let interval      = false;
+    let lastRun  = false;
     /*
      * @private
      *
@@ -99,9 +68,11 @@ exports.watchrc = function(){
      * @private
      *
      */
-    let runEvent = function(){
-        if (differents.length>0)
-            eventFunction();
+    let runEvent = function(eventType, inputFile){
+        eventFunction();
+        countRun++;
+        lastRun=(+new Date);
+        fileCountRun[inputFile]++;
     };
 };
 
