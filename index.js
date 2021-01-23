@@ -38,9 +38,9 @@ exports.watchrc = function(){
      */
     this.get = function(inputFile){
         return {
-           'lastRun'        : lastRun,
-           'runCount'       : countRun,
-           'runCountByFlie' : fileCountRun
+            'lastRun'        : lastRun,
+            'runCount'       : countRun,
+            'runCountByFlie' : fileCountRun
 
         };
     };
