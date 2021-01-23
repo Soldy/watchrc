@@ -67,7 +67,7 @@ nanoTest.add(
         'function':function(){
             fs.writeFileSync(
                 targetFile, 
-                'anni',
+                'ann',
                 { 
                     encodind : 'utf8',
                     mode     : 0o755 
@@ -100,7 +100,7 @@ nanoTest.add(
         'function':function(){
             fs.appendFileSync(
                 targetFile, 
-                'anni',
+                'annnni',
                 {
                     encoding : 'utf8',
                     mode     : 0o755 
@@ -118,7 +118,7 @@ nanoTest.add(
     'check watcher',
     {
         'function':async function(){
-            await sleep(3);
+            await sleep(4);
             return testChange;
         },
         'options':[]
