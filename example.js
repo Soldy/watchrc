@@ -1,4 +1,4 @@
-const watchrc = new (require('./index.js')).watchrc();
+const watchrc = new (require('./index.js')).base();
 
 
 watchrc.add('1');
