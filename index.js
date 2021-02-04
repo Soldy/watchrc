@@ -1,9 +1,15 @@
+/*
+ *  @Soldy\watchrc\2021.02.04\GPL3
+ */
 'use strict';
 
 const fs = require('fs');
 
 
-exports.watchrc = function(){
+/*
+ * @prototype
+ */
+const watchrcBase = function(){
     /*
      * @param {string} inputFile
      * @public
@@ -25,6 +31,7 @@ exports.watchrc = function(){
     /*
      * @param {function} inputFunction
      * @public
+     * @return {boolean}
      */
     this.init= function(inputFunction){
         if(typeof inputFunction !== 'function')
@@ -46,29 +53,27 @@ exports.watchrc = function(){
     };
     /*
      * @private
-     *
+     * @var {object}
      */
     let fileCountRun  = {};
     /*
      * @private
-     *
+     * @var {integer}
      */
     let countRun  = 0;
     /*
      * @private
-     *
+     * @var {boolean}
      */
     let lastRun  = false;
     /*
      * @private
-     *
      */
     let eventFunction  = function(){};
     /*
      * @private
-     *
      */
-    let runEvent = function(eventType, inputFile){
+    const runEvent = function(eventType, inputFile){
         eventFunction();
         countRun++;
         lastRun=(+new Date);
@@ -76,3 +81,4 @@ exports.watchrc = function(){
     };
 };
 
+exports.base =  watchrcBase;

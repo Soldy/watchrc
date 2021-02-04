@@ -1,6 +1,6 @@
 {
     "name": "watchrc",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "file watcher",
     "main": "index.js",
     "scripts": {
@@ -20,6 +20,6 @@
     "devDependencies": {
         "cheapest-sleep": "^0.99.0-alpha0",
         "interactiveConsole": "^0.0.7-alpha0",
-        "nanoTest": "^0.9.9-beta5"
+        "nanoTest": "^0.9.9-beta6"
     }
 }
